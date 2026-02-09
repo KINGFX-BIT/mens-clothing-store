@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
 
@@ -28,10 +29,13 @@ export default function CartPage() {
         <div className="lg:col-span-2 space-y-4">
           {items.map((item) => (
             <div key={item._id} className="flex gap-4 border p-4 rounded-lg">
-              <img
+              <Image
                 src={item.product.images[0]}
                 alt={item.product.name}
+                width={96}
+                height={96}
                 className="w-24 h-24 object-cover rounded"
+                unoptimized
               />
               <div className="flex-1">
                 <h3 className="font-semibold">{item.product.name}</h3>

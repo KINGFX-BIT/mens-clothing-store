@@ -19,8 +19,9 @@ export default function RegisterPage() {
     try {
       await register(name, email, password);
       router.push('/');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Registration failed');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Registration failed');
     }
   };
 

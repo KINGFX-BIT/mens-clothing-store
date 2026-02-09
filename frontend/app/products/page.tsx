@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import api from '@/lib/api';
 import { Product } from '@/lib/types';
 
@@ -34,10 +35,13 @@ export default function ProductsPage() {
         {products.map((product) => (
           <Link key={product._id} href={`/products/${product._id}`}>
             <div className="border rounded-lg overflow-hidden hover:shadow-lg transition">
-              <img
+              <Image
                 src={product.images[0]}
                 alt={product.name}
+                width={400}
+                height={256}
                 className="w-full h-64 object-cover"
+                unoptimized
               />
               <div className="p-4">
                 <h3 className="font-semibold mb-2">{product.name}</h3>

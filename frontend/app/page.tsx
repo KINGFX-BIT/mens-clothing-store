@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import api from '@/lib/api';
 import { Product } from '@/lib/types';
 
@@ -33,8 +34,8 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-slate-900 to-slate-700 text-white py-20">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-4">Premium Men's Clothing</h1>
-          <p className="text-xl mb-8">Discover the latest trends in men's fashion</p>
+          <h1 className="text-5xl font-bold mb-4">Premium Men&apos;s Clothing</h1>
+          <p className="text-xl mb-8">Discover the latest trends in men&apos;s fashion</p>
           <Link
             href="/products"
             className="bg-white text-slate-900 px-8 py-3 rounded-lg font-semibold hover:bg-slate-100 transition"
@@ -51,10 +52,13 @@ export default function HomePage() {
           {featured.map((product) => (
             <Link key={product._id} href={`/products/${product._id}`}>
               <div className="border rounded-lg overflow-hidden hover:shadow-lg transition">
-                <img
+                <Image
                   src={product.images[0]}
                   alt={product.name}
+                  width={400}
+                  height={256}
                   className="w-full h-64 object-cover"
+                  unoptimized
                 />
                 <div className="p-4">
                   <h3 className="font-semibold mb-2">{product.name}</h3>
@@ -75,10 +79,13 @@ export default function HomePage() {
             {bestsellers.map((product) => (
               <Link key={product._id} href={`/products/${product._id}`}>
                 <div className="border rounded-lg overflow-hidden hover:shadow-lg transition bg-white">
-                  <img
+                  <Image
                     src={product.images[0]}
                     alt={product.name}
+                    width={400}
+                    height={256}
                     className="w-full h-64 object-cover"
+                    unoptimized
                   />
                   <div className="p-4">
                     <h3 className="font-semibold mb-2">{product.name}</h3>
@@ -99,10 +106,13 @@ export default function HomePage() {
           {newArrivals.map((product) => (
             <Link key={product._id} href={`/products/${product._id}`}>
               <div className="border rounded-lg overflow-hidden hover:shadow-lg transition">
-                <img
+                <Image
                   src={product.images[0]}
                   alt={product.name}
+                  width={400}
+                  height={256}
                   className="w-full h-64 object-cover"
+                  unoptimized
                 />
                 <div className="p-4">
                   <h3 className="font-semibold mb-2">{product.name}</h3>

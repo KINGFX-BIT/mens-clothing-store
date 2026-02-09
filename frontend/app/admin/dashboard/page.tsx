@@ -8,7 +8,19 @@ import { useAuthStore } from '@/lib/store/authStore';
 export default function AdminDashboard() {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthStore();
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<{
+    totalRevenue: number;
+    totalOrders: number;
+    totalUsers: number;
+    totalProducts: number;
+    recentOrders?: Array<{
+      _id: string;
+      user: { name: string };
+      totalAmount: number;
+      status: string;
+      createdAt: string;
+    }>;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -76,11 +88,11 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody>
-              {stats.recentOrders?.map((order: any) => (
+              {stats.recentOrders?.map((order) => (
                 <tr key={order._id} className="border-b">
                   <td className="py-3 px-4 text-sm">{order._id}</td>
                   <td className="py-3 px-4 text-sm">{order.user?.name || 'N/A'}</td>
-                  <td className="py-3 px-4 text-sm">${order.totalPrice.toFixed(2)}</td>
+                  <td className="py-3 px-4 text-sm">${order.totalAmount.toFixed(2)}</td>
                   <td className="py-3 px-4 text-sm">
                     <span className="px-2 py-1 rounded-full text-xs bg-slate-100">
                       {order.status}

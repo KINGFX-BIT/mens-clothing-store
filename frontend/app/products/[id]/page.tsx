@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
 import api from '@/lib/api';
 import { Product } from '@/lib/types';
 import { useCartStore } from '@/lib/store/cartStore';
@@ -53,10 +54,13 @@ export default function ProductDetailPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <img
+          <Image
             src={product.images[0]}
             alt={product.name}
+            width={600}
+            height={600}
             className="w-full rounded-lg"
+            unoptimized
           />
         </div>
         <div>
