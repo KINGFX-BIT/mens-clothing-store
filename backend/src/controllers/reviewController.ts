@@ -6,7 +6,8 @@ import { AuthRequest } from '../types';
 
 export const getProductReviews = async (req: AuthRequest, res: Response) => {
   try {
-    const reviews = await Review.find({ product: req.params.productId })
+    const productId = req.params.productId as string;
+    const reviews = await Review.find({ product: productId })
       .populate('user', 'name')
       .sort({ createdAt: -1 });
     res.json(reviews);
@@ -23,7 +24,7 @@ export const createReview = async (req: AuthRequest, res: Response) => {
     }
 
     const { rating, comment } = req.body;
-    const productId = req.params.productId;
+    const productId = req.params.productId as string;
 
     const existingReview = await Review.findOne({
       user: req.user?.id,

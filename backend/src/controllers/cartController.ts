@@ -57,7 +57,10 @@ export const updateCartItem = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: 'Cart not found' });
     }
 
-    const item = cart.items.find(item => item._id?.toString() === itemId);
+    const item = cart.items.find(item => {
+      const id = (item as any)._id;
+      return id && id.toString() === itemId;
+    });
 
     if (!item) {
       return res.status(404).json({ message: 'Item not found in cart' });
@@ -83,7 +86,10 @@ export const removeFromCart = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: 'Cart not found' });
     }
 
-    cart.items = cart.items.filter(item => item._id?.toString() !== itemId);
+    cart.items = cart.items.filter(item => {
+      const id = (item as any)._id;
+      return id && id.toString() !== itemId;
+    });
     await cart.save();
 
     const populatedCart = await Cart.findById(cart._id).populate('items.product');
