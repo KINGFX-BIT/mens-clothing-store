@@ -6,6 +6,7 @@ import api from '@/lib/api';
 import { Product } from '@/lib/types';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useAuthStore } from '@/lib/store/authStore';
+import { toast } from 'sonner';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -26,6 +27,7 @@ export default function ProductDetailPage() {
         if (response.data.colors.length > 0) setSelectedColor(response.data.colors[0]);
       } catch (error) {
         console.error('Error fetching product:', error);
+        toast.error('Failed to load product');
       }
     };
     fetchProduct();
@@ -33,12 +35,13 @@ export default function ProductDetailPage() {
 
   const handleAddToCart = () => {
     if (!isAuthenticated) {
+      toast.error('Please login to add items to cart');
       router.push('/login');
       return;
     }
     if (product) {
       addItem(product, quantity, selectedSize, selectedColor);
-      alert('Added to cart!');
+      toast.success('Added to cart successfully!');
     }
   };
 
